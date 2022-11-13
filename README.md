@@ -2,7 +2,7 @@
 
 ## 🌟 About
 
-Just Eat is a food ordering mobile application made using Java, XML and SQLite.
+Just Eat is a food ordering android application made using Java, XML and SQLite.
 This application supports **CRUD Operations** - Create, Read, Update, and Delete.
 A user can place his order which would be stored in the database, he can also update or delete his orders.
 
