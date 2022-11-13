@@ -9,9 +9,9 @@ A user can place his order which would be stored in the database, he can also up
 ## ✨ Screenshots
 
 <div style="display:flex;">
-<img src="screenshots/img01.jpeg" width="260">
-<img src="screenshots/img02.jpeg" width="260" height = "513">
-<img src="screenshots/img03.jpeg" width="260">
+<img src="screenshots/img01.jpeg" width="261">
+<img src="screenshots/img02.jpeg" width="261" height = "513">
+<img src="screenshots/img03.jpeg" width="261">
 </div>
 
 
