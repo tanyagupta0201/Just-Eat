@@ -8,13 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.JustEat">
-        <activity
-            android:name=".DetailActivity">
-           </activity>
+        android:theme="@style/JustEatTheme">
 
-    <activity
-            android:name=".OrderActivity"></activity>
+        <activity android:name=".DetailActivity" />
+
+        <activity android:name=".OrderActivity" />
 
         <activity
             android:name=".MainActivity"
@@ -29,6 +27,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-    </application>
 
+    </application>
 </manifest>

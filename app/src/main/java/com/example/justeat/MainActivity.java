@@ -1,17 +1,13 @@
 package com.example.justeat;
 
-import static com.example.justeat.R.color.lightYellow;
-import static com.example.justeat.R.color.yellow;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.justeat.Adapters.MainAdapter;
 import com.example.justeat.Models.MainModel;
@@ -26,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(yellow)));
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -54,11 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.orders:
-                startActivity(new Intent(MainActivity.this, OrderActivity.class));
-                break;
+        if (item.getItemId() == R.id.orders) {
+            startActivity(new Intent(MainActivity.this, OrderActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
