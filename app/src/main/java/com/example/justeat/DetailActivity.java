@@ -12,6 +12,7 @@ import com.example.justeat.databinding.ActivityDetailBinding;
 public class DetailActivity extends AppCompatActivity {
 
     ActivityDetailBinding binding;
+    int foodQty = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,25 @@ public class DetailActivity extends AppCompatActivity {
         final String name = getIntent().getStringExtra("name");
         final String description = getIntent().getStringExtra("desc");
 
-        binding.detailImage.setImageResource(image);
+        binding.detailFoodItemImage.setImageResource(image);
         binding.priceLbl.setText(String.format("%d", price));
-        binding.nameBox.setText(name);
+        binding.detailFoodItemName.setText(name);
         binding.detailDescription.setText(description);
+        binding.detailFoodItemQtyTv.setText(String.valueOf(foodQty));
 
+        binding.detailFoodItemQtyAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFoodQuantity();
+            }
+        });
 
+        binding.detailFoodItemQtySub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subtractFoodQuantity();
+            }
+        });
 
         binding.insertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
                         image,
                         name,
                         description,
-                        Integer.parseInt(binding.quantity.getText().toString())
+                        Integer.parseInt(binding.detailFoodItemQtyTv.getText().toString())
                 );
 
                 if (isInserted)
@@ -65,7 +79,7 @@ public class DetailActivity extends AppCompatActivity {
           Cursor cursor = helper.getOrderById(id);
           int image = cursor.getInt(4);
 
-          binding.detailImage.setImageResource(image);
+          binding.detailFoodItemImage.setImageResource(image);
           binding.priceLbl.setText(String.format("%d", cursor.getInt(3)));
           binding.nameBox.setText(cursor.getString(6));
           binding.detailDescription.setText(cursor.getString(5));
@@ -97,4 +111,19 @@ public class DetailActivity extends AppCompatActivity {
           });
       }
     }
+
+    private void addFoodQuantity() {
+        foodQty += 1;
+        binding.detailFoodItemQtyTv.setText(String.valueOf(foodQty));
+    }
+
+    private void subtractFoodQuantity() {
+        if(foodQty > 1) {
+            foodQty -= 1;
+            binding.detailFoodItemQtyTv.setText(String.valueOf(foodQty));
+        } else {
+            Toast.makeText(this, "Can't reduce quantity any further", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
