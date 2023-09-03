@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.justeat.DetailActivity;
@@ -18,7 +19,7 @@ import com.example.justeat.R;
 
 import java.util.ArrayList;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.viewholder> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.Viewholder> {
 
     ArrayList<MainModel> list;
     Context context;
@@ -30,13 +31,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.viewholder> {
 
     @NonNull
     @Override
-    public viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.sample_mainfood, parent, false);
-        return new viewholder(view);
+        return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
 
         final MainModel model = list.get(position);
         holder.foodimage.setImageResource(model.getImage());
@@ -44,7 +45,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.viewholder> {
         holder.price.setText(model.getPrice());
         holder.description.setText(model.getDescription());
 
-        holder.foodimage.setOnClickListener(new View.OnClickListener() {
+        holder.mainCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // kahan se kahan tak jana hai
@@ -74,22 +75,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.viewholder> {
         return list.size(); // size of the recycler view (number of items present)
     }
 
-    public class viewholder extends RecyclerView.ViewHolder
-    {
-        public OrdersAdapter itemview;
+    public static class Viewholder extends RecyclerView.ViewHolder {
         ImageView foodimage;
         TextView mainName, price, description;
 
-        public viewholder(@NonNull View itemView) {
+        CardView mainCardView;
+
+        public Viewholder(@NonNull View itemView) {
             super(itemView);
+
+            mainCardView = itemView.findViewById(R.id.mainCardView);
 
             foodimage = itemView.findViewById(R.id.imageView);
             mainName = itemView.findViewById(R.id.name);
             price = itemView.findViewById(R.id.orderPrice);
             description = itemView.findViewById(R.id.foodDescription);
         }
-
-
 
     }
 }

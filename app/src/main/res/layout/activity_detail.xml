@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/noodles" />
+                    tools:srcCompat="@drawable/noodles" />
 
                 <TextView
                     android:id="@+id/detailFoodItemName"
@@ -99,25 +99,25 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:gravity="center"
-                android:text="@string/descriptionFood"
+                tools:text="@string/descriptionFood"
                 android:textColor="#070707" />
 
             <EditText
-                android:id="@+id/nameBox"
+                android:id="@+id/detailCustomerNameEdt"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/edittext_background"
                 android:ems="10"
-                android:hint="Your Name"
+                android:hint="@string/your_name"
                 android:inputType="textPersonName"
                 android:maxLines="1"
                 android:padding="9dp"
                 android:fontFamily="@font/montserrat_medium"/>
 
             <EditText
-                android:id="@+id/phoneBox"
+                android:id="@+id/detailCustomerPhoneEdt"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginBottom="10dp"
@@ -156,10 +156,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/priceLbl"
+                    android:id="@+id/detailPriceLbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15"
+                    tools:text="15"
                     android:textColor="@color/red"
                     android:textSize="22sp"
                     android:textStyle="bold" />

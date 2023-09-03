@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.justeat.Models.OrdersModel;
 import com.example.justeat.databinding.ActivityDetailBinding;
 
 public class DetailActivity extends AppCompatActivity {
@@ -34,24 +35,10 @@ public class DetailActivity extends AppCompatActivity {
                 final String description = getIntent().getStringExtra("desc");
 
                 binding.detailFoodItemImage.setImageResource(image);
-                binding.priceLbl.setText(String.format("%d", price));
+                binding.detailPriceLbl.setText(String.format("%d", price));
                 binding.detailFoodItemName.setText(name);
                 binding.detailDescription.setText(description);
                 binding.detailFoodItemQtyTv.setText(String.valueOf(foodQty));
-
-                binding.detailFoodItemQtyAdd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addFoodQuantity();
-                    }
-                });
-
-                binding.detailFoodItemQtySub.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        subtractFoodQuantity();
-                    }
-                });
 
                 binding.insertBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -61,13 +48,13 @@ public class DetailActivity extends AppCompatActivity {
 
                         if (isValidString) {
                             boolean isInserted = helper.insertOrder(
-                                    binding.nameBox.getText().toString(),
-                                    binding.phoneBox.getText().toString(),
+                                    binding.detailCustomerNameEdt.getText().toString(),
+                                    binding.detailCustomerPhoneEdt.getText().toString(),
                                     price,
                                     image,
-                                    name,
                                     description,
-                                    Integer.parseInt(binding.detailFoodItemQtyTv.getText().toString())
+                                    name,
+                                    foodQty
                             );
 
                             if (isInserted)
@@ -79,19 +66,23 @@ public class DetailActivity extends AppCompatActivity {
                 });
 
             } else {
-                // Update Orders
 
+                // Update Orders
                 int id = getIntent().getIntExtra("id", 0);
                 Cursor cursor = helper.getOrderById(id);
-                int image = cursor.getInt(4);
 
-                binding.detailFoodItemImage.setImageResource(image);
-                binding.priceLbl.setText(String.format("%d", cursor.getInt(3)));
-                binding.nameBox.setText(cursor.getString(6));
-                binding.detailDescription.setText(cursor.getString(5));
+                binding.detailFoodItemName.setText(cursor.getString(7));
+                binding.detailDescription.setText(cursor.getString(6));
 
-                binding.nameBox.setText(cursor.getString(1));
-                binding.phoneBox.setText(cursor.getString(2));
+                foodQty = cursor.getInt(5);
+                binding.detailFoodItemQtyTv.setText(String.valueOf(foodQty));
+                int itemImageID = cursor.getInt(4);
+                binding.detailFoodItemImage.setImageResource(itemImageID);
+
+                binding.detailPriceLbl.setText(String.valueOf(cursor.getInt(3)));
+                binding.detailCustomerPhoneEdt.setText(cursor.getString(2));
+
+                binding.detailCustomerNameEdt.setText(cursor.getString(1));
 
                 binding.insertBtn.setText("Update Now");
                 binding.insertBtn.setOnClickListener(new View.OnClickListener() {
@@ -101,24 +92,32 @@ public class DetailActivity extends AppCompatActivity {
                         // checks if the Name and Phone fields are valid inputs
                         boolean isValidString = checkForValidStringInput();
 
-                        Toast.makeText(DetailActivity.this, "isValidString: " + isValidString, Toast.LENGTH_SHORT).show();
-
                         if (isValidString) {
                             boolean isUpdated = helper.updateOrder(
-                                    binding.nameBox.getText().toString(),
-                                    binding.phoneBox.getText().toString(),
-                                    Integer.parseInt(binding.priceLbl.getText().toString()),
-                                    image,
+                                    binding.detailCustomerNameEdt.getText().toString(),
+                                    binding.detailCustomerPhoneEdt.getText().toString(),
+                                    Integer.parseInt(binding.detailPriceLbl.getText().toString()),
+                                    itemImageID,
                                     binding.detailDescription.getText().toString(),
-                                    binding.nameBox.getText().toString(),
-                                    1,
+                                    binding.detailFoodItemName.getText().toString(),
+                                    foodQty,
                                     id
                             );
 
-                            if (isUpdated)
-                                Toast.makeText(DetailActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(DetailActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                            if (isUpdated) {
+                                Toast.makeText(
+                                        DetailActivity.this,
+                                        "Updated",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                                cursor.close();
+                            } else {
+                                Toast.makeText(
+                                        DetailActivity.this,
+                                        "Failed",
+                                        Toast.LENGTH_SHORT
+                                ).show();
+                            }
                         }
 
                     }
@@ -130,14 +129,28 @@ public class DetailActivity extends AppCompatActivity {
             Log.e("DB Exception", "DB Exception Occurred: " + e);
         }
 
+        binding.detailFoodItemQtyAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFoodQuantity();
+            }
+        });
+
+        binding.detailFoodItemQtySub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subtractFoodQuantity();
+            }
+        });
+
     }
 
     private boolean checkForValidStringInput() {
 
         boolean isValid = false;
 
-        String name = binding.nameBox.getText().toString().trim();
-        String phone = binding.phoneBox.getText().toString().trim();
+        String name = binding.detailCustomerNameEdt.getText().toString().trim();
+        String phone = binding.detailCustomerPhoneEdt.getText().toString().trim();
 
         if (!name.isEmpty()) {
             if (phone.length() == 10) {
