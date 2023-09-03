@@ -1,169 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background = "#ffffff"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
     tools:context=".DetailActivity">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/detailFoodItemImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/noodles" />
+
+                <TextView
+                    android:id="@+id/detailFoodItemName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:fontFamily="@font/arya_bold"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="#090909"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="Hakka Veg Sakinaka Noodles" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4EFEF"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/detailFoodItemQtySub"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:srcCompat="@drawable/sub"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/detailFoodItemQtyTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginRight="2dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:text="1"
+                        android:textColor="#020202"
+                        android:textSize="25sp"
+                        tools:text="1" />
+
+                    <ImageView
+                        android:id="@+id/detailFoodItemQtyAdd"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:srcCompat="@drawable/add"
+                        android:layout_marginStart="16dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/detailImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/noodles" />
-
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/detailDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:fontFamily="@font/allerta"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_medium"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="Food Name"
-                android:textColor="#090909"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:text="@string/descriptionFood"
+                android:textColor="#070707" />
+
+            <EditText
+                android:id="@+id/nameBox"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:hint="Your Name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:padding="9dp"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <EditText
+                android:id="@+id/phoneBox"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints="true"
+                android:background="@drawable/edittext_background"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:padding="9dp"
+                android:fontFamily="@font/montserrat_medium"/>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:text="Price"
+                android:textColor="#000000" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="#F4EFEF"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="3dp">
-
-                <ImageView
-                    android:id="@+id/subtract"
-                    android:layout_width="30dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/sub" />
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/quantity"
+                    android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:text="TextView"
-                    android:textColor="#020202"
-                    android:textSize="25dp"
-                    tools:text="1" />
+                    android:text="$"
+                    android:textColor="@color/red"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/add"
-                    android:layout_width="30dp"
-                    android:layout_height="40dp"
-                    app:srcCompat="@drawable/add" />
-
+                <TextView
+                    android:id="@+id/priceLbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:textColor="@color/red"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/detailDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="9dp"
-            android:gravity="center"
-            android:text="@string/descriptionFood"
-            android:textColor="#070707" />
-
-        <EditText
-            android:id="@+id/nameBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="Your Name"
-            android:inputType="textPersonName"
-            android:padding="9dp" />
-
-        <EditText
-            android:id="@+id/phoneBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/edittext_background"
-            android:ems="10"
-            android:hint="Phone"
-            android:inputType="phone"
-            android:padding="9dp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:gravity="center"
-            android:text="Price"
-            android:textColor="#000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/insertBtn"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="$"
-                android:textColor="@color/red"
-                android:textSize="22dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/btn_background"
+                android:gravity="center"
+                android:text="ORDER NOW"
+                android:textColor="#050505"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/priceLbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15"
-                android:textColor="@color/red"
-                android:textSize="22dp"
-                android:textStyle="bold" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/insertBtn"
-            android:layout_width="250dp"
-            android:layout_height="42dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="22dp"
-            android:background="@drawable/btn_background"
-            android:text="ORDER NOW"
-            android:gravity="center"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:textColor="#050505" />
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
