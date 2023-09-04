@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -49,7 +50,15 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertOrder(String name, String phone, int price, int image, String desc, String foodName, int quantity)
+    public boolean insertOrder(
+            String name,
+            String phone,
+            int price,
+            int image,
+            String desc,
+            String foodName,
+            int quantity
+    )
     {
         // jo bhi database create hua hoga usko fetch karlega yeh
         SQLiteDatabase database = getReadableDatabase();
@@ -61,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
             price = 3
             image = 4
             desc = 5
-            foodname = 6
+            foodName = 6
             quantity = 7
          */
 
@@ -72,7 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("price", price);
         values.put("image", image);
         values.put("description", desc);
-        values.put("foodname", foodName);
+        values.put("foodName", foodName);
         values.put("quantity", quantity);
 
         long id = database.insert("orders", null, values);
@@ -95,9 +104,23 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<OrdersModel> orders = new ArrayList<>();
         SQLiteDatabase database = this.getWritableDatabase();
 
+        /*
+            id = 0
+            name = 1
+            phone = 2
+            price = 3
+            image = 4
+            quantity = 5
+            desc = 6
+            foodName = 7
+         */
+
         // cursor is used to point the rows
         // works like an iteration
-        Cursor cursor = database.rawQuery("Select id, foodname, image, price from orders", null);
+        Cursor cursor = database.rawQuery(
+                "Select * from orders",
+                null
+        );
 
         if(cursor.moveToFirst())
         {
@@ -106,40 +129,58 @@ public class DBHelper extends SQLiteOpenHelper {
                 OrdersModel model = new OrdersModel();
 
                 model.setOrderNumber(cursor.getInt(0) + "");
-                model.setSoldItemName(cursor.getString(1));
-                model.setOrderImage(cursor.getInt(2));
+                model.setOrderTo(cursor.getString(1));
+                model.setPhone(cursor.getString(2));
                 model.setPrice(cursor.getInt(3) + "");
+                model.setOrderImage(cursor.getInt(4));
+                model.setQuantity(cursor.getInt(5));
+                model.setDescription(cursor.getString(6));
+                model.setFoodName(cursor.getString(7));
+
                 orders.add(model);
             }
         }
+
         cursor.close();
         database.close(); // avoids memory leakage and makes the application efficient
 
         return orders;
     }
 
-    public Cursor getOrderById(int id)
-    {
+    public Cursor getOrderById(int id) {
         ArrayList<OrdersModel> orders = new ArrayList<>();
         SQLiteDatabase database = this.getWritableDatabase();
 
         // cursor is used to point the rows
         // works like an iteration
-        Cursor cursor = database.rawQuery("Select * from orders where id = " +id, null);
+        Cursor cursor = database.rawQuery(
+                "Select * from orders where id = " +id,
+                null
+        );
 
         if(cursor != null)
         {
             cursor.moveToFirst();
+            Log.i("Orders Model DB", "Orders Model DB Item 1: " + cursor.getInt(0));
         }
 
-        cursor.close();
         database.close(); // avoids memory leakage and makes the application efficient
 
+        // since we're passing cursor here, so we won't close the cursor here
+        // otherwise the cursor will return null
         return cursor;
     }
 
-    public boolean updateOrder(String name, String phone, int price, int image, String desc, String foodName, int quantity, int id)
-    {
+    public boolean updateOrder(
+            String name,
+            String phone,
+            int price,
+            int image,
+            String desc,
+            String foodName,
+            int quantity,
+            int id
+    ) {
         // jo bhi database create hua hoga usko fetch karlega yeh
         SQLiteDatabase database = getReadableDatabase();
 
@@ -161,10 +202,15 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("price", price);
         values.put("image", image);
         values.put("description", desc);
-        values.put("foodname", foodName);
+        values.put("foodName", foodName);
         values.put("quantity", quantity);
 
-        long row = database.update("orders", values, "id = "+id, null);
+        long row = database.update(
+                "orders",
+                values,
+                "id = "+id,
+                null
+        );
 
         if (row <= 0)
         {

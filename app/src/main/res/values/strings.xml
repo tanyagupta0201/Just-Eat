@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Just Eat</string>
     <string name="descriptionFood">Street style Vegetable Hakka Noodles make a great weeknight meal!</string>
+    <string name="price">Price</string>
+    <string name="order">Order #</string>
+    <string name="dollar_symbol">$</string>
+    <string name="your_name">Your Name</string>
 
 </resources>
